@@ -8,10 +8,19 @@ use Attribute;
 use orange\request\RequestAttribute;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
+/**
+ * Declares the human-friendly label for a request property.
+ */
 class Label extends RequestAttribute
 {
+    /**
+     * Stores the configured display label.
+     */
     public function __construct(protected string $name = '') {}
 
+    /**
+     * Returns the configured display label.
+     */
     public function getName(): string
     {
         return $this->name;

@@ -4,12 +4,47 @@ declare(strict_types=1);
 
 namespace orange\request;
 
+/**
+ * Provides shared behavior for request metadata, filters, and validators.
+ */
 class RequestAttribute
 {
-    protected array $request;
+    protected Request $request;
+    protected string $human = 'This field';
+    protected string $errorMsg = '';
 
-    public function request(array $request): void
+    /**
+     * Stores an optional custom error message for the attribute.
+     */
+    public function __construct(protected string $message = '')
+    {
+        $this->message = $message;
+    }
+
+    /**
+     * Shares the current request instance with the attribute.
+     */
+    public function request(Request $request): void
     {
         $this->request = $request;
+    }
+
+    /**
+     * Returns the formatted error message for the attribute.
+     */
+    public function getMessage(?string $human = null): string
+    {
+        $human = $human ?: $this->human;
+        $errorMsg = $this->message ?: $this->errorMsg;
+
+        return sprintf($errorMsg, ...array_merge([$human], $this->getMessageValues()));
+    }
+
+    /**
+     * Supplies additional values used when formatting error messages.
+     */
+    protected function getMessageValues(): array
+    {
+        return [];
     }
 }

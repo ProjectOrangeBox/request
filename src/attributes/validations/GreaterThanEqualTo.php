@@ -9,11 +9,11 @@ use orange\request\RequestAttribute;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
 /**
- * Validates that a numeric value is greater than a configured threshold.
+ * Validates that a numeric value is greater than or equal to a threshold.
  */
-class GreaterThan extends RequestAttribute
+class GreaterThanEqualTo extends RequestAttribute
 {
-    protected string $errorMsg = '%s must be greater than %s';
+    protected string $errorMsg = '%s must be greater than or equal to %s';
 
     /**
      * Stores the comparison value and optional custom message.
@@ -21,16 +21,14 @@ class GreaterThan extends RequestAttribute
     public function __construct(protected int $length, protected string $message = '') {}
 
     /**
-     * Checks whether the input is greater than the configured value.
+     * Checks whether the input is greater than or equal to the configured value.
      */
     public function validate(mixed $input): bool
     {
         $bool = false;
 
-        if (is_int($input)) {
-            var_dump($input);
-
-            $bool = $input > $this->length;
+        if (is_numeric($input)) {
+            $bool = (float)$input >= $this->length;
         }
 
         return $bool;

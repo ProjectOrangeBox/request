@@ -9,17 +9,17 @@ use orange\request\RequestAttribute;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
 /**
- * Validates that input is present and not empty.
+ * Validates that input contains a numeric value.
  */
-class IsRequired extends RequestAttribute
+class Numeric extends RequestAttribute
 {
-    protected string $errorMsg = '%s is required';
+    protected string $errorMsg = '%s must contain only numbers';
 
     /**
-     * Checks whether the input contains a non-empty value.
+     * Checks whether the input is numeric.
      */
     public function validate(mixed $input): bool
     {
-        return !empty($input);
+        return is_scalar($input) && is_numeric((string)$input);
     }
 }

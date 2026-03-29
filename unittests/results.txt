@@ -1,0 +1,34 @@
+Filter Attributes
+ [x] To string
+ [x] To integer
+ [x] To boolean
+ [x] Str limit
+
+Validation Attributes
+ [x] Alpha
+ [x] Alpha dash
+ [x] Alpha numeric
+ [x] Alpha numeric spaces
+ [x] Decimal
+ [x] Differs
+ [x] Exact length
+ [x] Greater than
+ [x] Greater than equal to
+ [x] In list
+ [x] Integer
+ [x] Is natural
+ [x] Is natural no zero
+ [x] Is required
+ [x] Less than
+ [x] Less than equal to
+ [x] Matches
+ [x] Max length
+ [x] Min length
+ [x] Numeric
+ [x] Regex match
+ [x] Valid base 64
+ [x] Valid email
+ [x] Valid emails
+ [x] Valid ip
+ [x] Valid url
+

@@ -8,10 +8,21 @@ use Attribute;
 use orange\request\RequestAttribute;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
+/**
+ * Validates that a string does not exceed a maximum length.
+ */
 class MaxLength extends RequestAttribute
 {
-    public function __construct(private int $length, private string $message = '') {}
+    protected string $errorMsg = '%s must be less than %s characters';
 
+    /**
+     * Stores the maximum length and optional custom message.
+     */
+    public function __construct(private int $length, protected string $message = '') {}
+
+    /**
+     * Checks whether the input string length is below the configured maximum.
+     */
     public function validate(mixed $input): bool
     {
         $bool = false;
@@ -23,15 +34,19 @@ class MaxLength extends RequestAttribute
         return $bool;
     }
 
+    /**
+     * Returns the configured maximum length.
+     */
     public function getLength(): int
     {
         return $this->length;
     }
 
-    public function getMessage(string $human): string
+    /**
+     * Supplies the maximum length for the formatted error message.
+     */
+    protected function getMessageValues(): array
     {
-        $errorMsg = $this->message ?: $human . ' must be less than ' . $this->length . ' characters';
-
-        return sprintf($errorMsg, $human, $this->length);
+        return [$this->length];
     }
 }

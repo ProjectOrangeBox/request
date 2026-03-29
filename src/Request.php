@@ -131,6 +131,22 @@ class Request
     }
 
     /**
+     * Returns raw input data or a single raw input value.
+     *
+     * @param null|string $key Optional input key to retrieve
+     * @param mixed $default Default value to return when the key is not found
+     * @return mixed
+     */
+    public function input(?string $key = null, mixed $default = ''): mixed
+    {
+        if ($key === null) {
+            return $this->input;
+        }
+
+        return $this->input[$key] ?? $default;
+    }
+
+    /**
      * Extracts the short class name from a fully qualified class name.
      *
      * @param string $className The fully qualified class name

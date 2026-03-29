@@ -9,33 +9,33 @@ use orange\request\RequestAttribute;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
 /**
- * Validates that a string exceeds a minimum length.
+ * Validates that a string has an exact length.
  */
-class MinLength extends RequestAttribute
+class ExactLength extends RequestAttribute
 {
-    protected string $errorMsg = '%s must be greater than %s characters';
+    protected string $errorMsg = '%s must be exactly %s characters';
 
     /**
-     * Stores the minimum length and optional custom message.
+     * Stores the required length and optional custom message.
      */
     public function __construct(private int $length, protected string $message = '') {}
 
     /**
-     * Checks whether the input string length is above the configured minimum.
+     * Checks whether the input string length matches the configured value.
      */
     public function validate(mixed $input): bool
     {
         $bool = false;
 
         if (is_string($input)) {
-            $bool = strlen($input) > $this->length;
+            $bool = strlen($input) === $this->length;
         }
 
         return $bool;
     }
 
     /**
-     * Returns the configured minimum length.
+     * Returns the configured exact length.
      */
     public function getLength(): int
     {
@@ -43,7 +43,7 @@ class MinLength extends RequestAttribute
     }
 
     /**
-     * Supplies the minimum length for the formatted error message.
+     * Supplies the configured length for the formatted error message.
      */
     protected function getMessageValues(): array
     {

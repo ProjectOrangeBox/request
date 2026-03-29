@@ -8,10 +8,14 @@ use Attribute;
 use orange\request\RequestAttribute;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
+/**
+ * Casts request input to an integer.
+ */
 class ToInteger extends RequestAttribute
 {
-    public function __construct() {}
-
+    /**
+     * Returns the integer-cast value.
+     */
     public function filter(mixed $input): mixed
     {
         return (int)$input;
